@@ -1,10 +1,13 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from data_definer import dataSummary
-import app_checks
+from app_validator import appComponentCheck
+import json
 
 app = FastAPI()
 
+success = json.dumps({'success': True}), 200, {'Content-Type': 'application/json'}
+bad_request = json.dumps({'success': False}), 400, {'Content-Type': 'application/json'}
 
 # Root route
 @app.get("/")
@@ -28,6 +31,11 @@ class Data(BaseModel):
 @app.post("/review")
 def read_item(data: Data):
     webhook = data
-    data_obj = dataSummary(webhook)
-    app_checks.url_check(data_obj)
+    app = dataSummary(webhook)
+    if appComponentCheck(app):
+        # App has passed initial checks | Do more stuff.
+        print("Placeholder comment - App passed initial checks")
+    else:
+        # App has failed initial checks | do more stuff. 
+        print("Placeholder comment - App failed initial checks")
     return data

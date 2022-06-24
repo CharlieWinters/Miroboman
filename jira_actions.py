@@ -12,12 +12,26 @@ def comment_to_ticket(issue_key, comment, public=True):
             "version":1,"type":"doc","content":
             [
                 {
-                    "type":"paragraph","content": [
+                    "type":"paragraph",
+                    "content": [
                         {
-                            "type":"text","text":comment}]}]},
-                            "properties":[{"key":"sd.public.comment","value":{"internal":public}}]})
+                            "type":"text",
+                            "text":comment
+                            }
+                        ]
+                    }
+                ]
+            },
+            "properties":[
+                {"key":"sd.public.comment",
+                "value":{"internal":public}
+                }
+            ]
+        }
+    )
     try:
         post_comment = rest.post(url, payload)
         print(f"Comment status: {post_comment.status_code}")
+        #print(f"Failure: {post_comment.content}")
     except Exception as err:
         raise err
