@@ -4,6 +4,7 @@ class dataSummary():
     def __init__(self, request_data):
         try:
             self.issue_key = request_data.issue_key
+            self.app_name = request_data.app_name
             self.summary = request_data.summary
             self.description = request_data.description
             self.user_id = request_data.user_id

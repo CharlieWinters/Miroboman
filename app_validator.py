@@ -17,7 +17,7 @@ class appComponentCheck(object):
                             "recording_url": [app.recording_link, False]
                             }
         
-        self.controller()
+        #self.controller()
 
     def controller(self):
         self.description_check()
@@ -28,7 +28,9 @@ class appComponentCheck(object):
                 self.url_checks(key, value)
             else:
                 print(f"No URL check needed for {key}")
-        self.pass_check()
+        # Check if any failures have been recorded
+        if self.pass_check():
+            return True
         
 
     def description_check(self):
@@ -44,7 +46,6 @@ class appComponentCheck(object):
     def url_checks(self, key, val):
         print(f"\nChecking {key} link.\n")
         app_check_result = app_checks.url_check(val[0])
-        print(f"APP RESPONSE: {app_check_result}")
         if app_check_result[0]:
             print("True - URL test passed.")
             self.review_items[key][1] = True
@@ -67,6 +68,7 @@ class appComponentCheck(object):
         if failures:
             print(f"Rejecting app as {len(failures)} failures found.")
             jira_actions.comment_to_ticket(self.app.issue_key, text.failure_message.format("\n".join(map(str,failures))), False)
+            return False
         else:
             print(f"{len(failures)} failures found. Proceeding with greeting message.")
             return True
