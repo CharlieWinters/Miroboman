@@ -2,10 +2,10 @@ from urllib import response
 from urllib.error import HTTPError
 import requests
 
-def get(url):
+def get(url, headers=""):
     print(f"Making a GET to {url}")
     try:
-        response_data = requests.get(url)
+        response_data = requests.get(url, headers=headers)
     except HTTPError as err:
         raise err
     status_check(response_data)
@@ -37,4 +37,5 @@ def put(url, payload, auth):
 def status_check(status):
     if status.status_code in range(300, 600):
         print(f"There was an issue with the call, status_code is {status.status_code}\n")
-            #f"Error details are: {status.content}")
+        print(f"Error details are: {status.content}")
+        print(f"Call details are: {status.headers}")

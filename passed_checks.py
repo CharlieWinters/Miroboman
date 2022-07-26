@@ -3,6 +3,7 @@ import text
 import rest
 import jira_actions
 import json
+from miro_boards import boards
 
 class welcomeActions(object):
 
@@ -12,41 +13,16 @@ class welcomeActions(object):
         self.controller()
 
     def controller(self):
-        new_board_link = f"{config.miro_board_url}{self.duplicate_review_board()}"
+        new_board_id = boards.duplicate_review_board(self.app)
+        try:
+            boards.update_board_items(self.app, new_board_id)
+        except:
+            print("Board updates failed, please check logs")
+        
+
+        new_board_link = f"{config.miro_board_url}{new_board_id}"
         print(f"New board for {self.app.app_name} can be found at {new_board_link}")
         self.add_welcome_message(new_board_link)
-
-    # Make a copy of the app review board template for this app review.
-    def duplicate_review_board(self):
-        print("Duplicating App review board.")
-        url = f"{config.miro_base_url}boards?copy_from={config.miro_app_review_template_board}"
-        
-        payload = {
-            "name": f"App review - {self.app.app_name}",
-            "policy": {
-                "permissionsPolicy": {
-                    "collaborationToolsStartAccess": "all_editors",
-                    "copyAccess": "anyone",
-                    "sharingAccess": "team_members_with_editing_rights"
-                },
-                "sharingPolicy": {
-                    "access": "comment",
-                    "inviteToAccountAndBoardLinkAccess": "no_access",
-                    "organizationAccess": "edit",
-                    "teamAccess": "edit"
-                }
-            },
-            "teamId": f"{config.miro_team_id}",
-            "description": f"App review board for {self.app.app_name}"
-        }
-        try:
-            board_dupe_request = rest.put(url, json.dumps(payload), config.miro_auth)
-            print(f"Reqeuest status: {board_dupe_request.status_code}")
-            board_dupe_request_json = board_dupe_request.json()
-        except Exception as err:
-            raise err
-        board_id = board_dupe_request_json['id']
-        return board_id
 
     # Post the welcome message with review board to Jira
     def add_welcome_message(self, board):

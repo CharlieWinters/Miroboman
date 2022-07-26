@@ -44,4 +44,4 @@ def read_item(data: Data):
     else:
         # App has failed initial checks | do more stuff. 
         print("Placeholder comment - App failed initial checks, exiting out of review process.")
-    return success
+        return success
