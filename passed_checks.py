@@ -16,8 +16,8 @@ class welcomeActions(object):
         new_board_id = boards.duplicate_review_board(self.app)
         try:
             boards.update_board_items(self.app, new_board_id)
-        except:
-            print("Board updates failed, please check logs")
+        except Exception as err:
+            print(f"Board updates failed, please check logs\n {err}")
         
 
         new_board_link = f"{config.miro_board_url}{new_board_id}"

@@ -1,9 +1,11 @@
 from urllib import response
 from urllib.error import HTTPError
 import requests
+import json
 
+# GET
 def get(url, headers=""):
-    print(f"Making a GET to {url}")
+    print(f"Making a GET to {url}\n")
     try:
         response_data = requests.get(url, headers=headers)
     except HTTPError as err:
@@ -11,6 +13,7 @@ def get(url, headers=""):
     status_check(response_data)
     return response_data
 
+# POST
 def post(url, payload, auth):
     print(f"Making a Post to {url}")
     headers = {'Authorization': f'{auth}',
@@ -22,6 +25,7 @@ def post(url, payload, auth):
     status_check(response_data)
     return response_data
 
+# PUT
 def put(url, payload, auth):
     print(f"Making a PUT to {url}")
     headers = {'Authorization': f'{auth}',
@@ -31,6 +35,18 @@ def put(url, payload, auth):
     except HTTPError as err:
         raise err
     status_check(response_data)    
+    return response_data
+
+# PATCH
+def patch(url, payload, auth):
+    print(f"Making a Post to {url}")
+    headers = {'Authorization': f'{auth}',
+                'Content-Type': 'application/json'}
+    try:
+        response_data = requests.patch(url, data=payload, headers=headers)
+    except HTTPError as err:
+        raise err
+    status_check(response_data)
     return response_data
 
 # Check the status of the request, if 4XX or 5XX then print error details. 
