@@ -11,7 +11,7 @@ welcome_message = """Hey there! \n \
 
     *Design/Functionality*\n \
 
-    We check the design elements of the app's menus and components for consistency, and ensure that the app functions as advertised. More details of what's expected can be found in our [public guidelines|https://developers.miro.com/docs/security-guidelines].
+    We check the design elements of the app's menus and components for consistency, and ensure that the app functions as advertised. More details of what's expected can be found in our [public guidelines|https://developers.miro.com/docs/design-guidelines].
     The Design review will be performed on the following [Miro board|{1}], once the review has started you will get access and be able to collaborate with the team.\n \
 
     *Security*\n \

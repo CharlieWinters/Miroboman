@@ -4,7 +4,7 @@ import requests
 import json
 
 # GET
-def get(url, headers=""):
+def get(url, headers=None):
     print(f"Making a GET to {url}\n")
     try:
         response_data = requests.get(url, headers=headers)

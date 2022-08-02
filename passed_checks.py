@@ -1,8 +1,6 @@
 import config
 import text
-import rest
 import jira_actions
-import json
 from miro_boards import boards
 
 class welcomeActions(object):
@@ -15,7 +13,8 @@ class welcomeActions(object):
     def controller(self):
         new_board_id = boards.duplicate_review_board(self.app)
         try:
-            boards.update_board_items(self.app, new_board_id)
+            #boards.update_board_items(self.app, new_board_id)
+            boards.boardUpdater(self.app, new_board_id)
         except Exception as err:
             print(f"Board updates failed, please check logs\n {err}")
         
