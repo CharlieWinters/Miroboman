@@ -1,11 +1,11 @@
 from urllib import response
 from urllib.error import HTTPError
 import requests
-import json
+from logging_dir.logging import logger
 
 # GET
 def get(url, headers=None):
-    print(f"Making a GET to {url}\n")
+    logger.info(f"Making a GET to {url}\n")
     try:
         response_data = requests.get(url, headers=headers)
     except HTTPError as err:
@@ -15,7 +15,7 @@ def get(url, headers=None):
 
 # POST
 def post(url, payload, auth):
-    print(f"Making a Post to {url}")
+    logger.info(f"Making a Post to {url}")
     headers = {'Authorization': f'{auth}',
                 'Content-Type': 'application/json'}
     try:
@@ -27,7 +27,7 @@ def post(url, payload, auth):
 
 # PUT
 def put(url, payload, auth):
-    print(f"Making a PUT to {url}")
+    logger.info(f"Making a PUT to {url}")
     headers = {'Authorization': f'{auth}',
                 'Content-Type': 'application/json'}
     try:
@@ -39,7 +39,7 @@ def put(url, payload, auth):
 
 # PATCH
 def patch(url, payload, auth):
-    print(f"Making a Post to {url}")
+    logger.info(f"Making a Post to {url}")
     headers = {'Authorization': f'{auth}',
                 'Content-Type': 'application/json'}
     try:
@@ -52,6 +52,6 @@ def patch(url, payload, auth):
 # Check the status of the request, if 4XX or 5XX then print error details. 
 def status_check(status):
     if status.status_code in range(300, 600):
-        print(f"There was an issue with the call, status_code is {status.status_code}\n")
-        print(f"Error details are: {status.content}")
-        print(f"Call details are: {status.headers}")
+        logger.info(f"There was an issue with the call, status_code is {status.status_code}\n")
+        logger.info(f"Error details are: {status.content}")
+        logger.info(f"Call details are: {status.headers}")

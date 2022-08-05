@@ -2,10 +2,11 @@ from typing import Tuple
 import config
 import rest
 import json
+from logging_dir.logging import logger
 
 # Make a copy of the app review board template for this app review.
 def duplicate_review_board(app):
-        print("Duplicating App review board.")
+        logger.info("Duplicating App review board.")
         url = f"{config.miro_base_url}boards?copy_from={config.miro_app_review_template_board}"
         
         payload = {
@@ -29,7 +30,7 @@ def duplicate_review_board(app):
         
         try:
             board_dupe_request = rest.put(url, json.dumps(payload), config.miro_auth)
-            print(f"Reqeuest status: {board_dupe_request.status_code}\n")
+            logger.info(f"Reqeuest status: {board_dupe_request.status_code}\n")
             board_dupe_request_json = board_dupe_request.json()
         except Exception as err:
             raise err
@@ -59,7 +60,7 @@ class boardUpdater(object):
 
     # Get the full list of items on the board
     def get_board_item_data(self, board: str) -> list:
-        print(f"Getting board items for board with id {board}\n")
+        logger.info(f"Getting board items for board with id {board}\n")
         url = f"{self.url}items?limit=50"
         headers = {
             "Accept": "application/json",
@@ -67,10 +68,10 @@ class boardUpdater(object):
             "Authorization": f"{self.auth}"
         }
         response = rest.get(url, headers=headers)
-        print(f"Board item call: {response.status_code}\n")
+        logger.info(f"Board item call: {response.status_code}\n")
         board_items = response.json()['data']
         while 'next' in response.json()['links']:
-            print("'next' value found. Calling again")
+            logger.info("'next' value found. Calling again")
             new_url = response.json()['links']['next']
             response = rest.get(new_url, headers=headers)
             board_items.extend(response.json()['data'])
@@ -78,35 +79,35 @@ class boardUpdater(object):
 
     # Retrieve id for board title
     def get_board_title_id(self, board_items: list) -> Tuple[str, dict]:
-        print(f"Getting board app title id\n")
+        logger.info(f"Getting board app title id\n")
         for board_item in board_items:
             if "text" in board_item['type'] and '_' not in board_item['type']:
-                print(f"Text item found\n")
+                logger.info(f"Text item found\n")
                 if "app-name" in board_item['data']['content']:
                     board_id = board_item['id']
                     board_id_position = board_item['position']
-                    print(f"Found title: {board_item['data']['content']} | Id: {board_id}\n")
+                    logger.info(f"Found title: {board_item['data']['content']} | Id: {board_id}\n")
                     return [board_id, board_id_position]
 
     # Get the ids and position for the url fields (jira ticket and install url)
     def get_url_placeholder_ids(self, board_items):
-        print("Retrieving url board values\n")
+        logger.info("Retrieving url board values\n")
         url_placeholders = []
         for board_item in board_items:
             if "shape" in board_item['type']:
-                print("Shape found!\n")
+                logger.info("Shape found!\n")
                 if "jira_url" in board_item['data']['content']:
                     jira_url_data = {'id': board_item['id'], 'position': board_item['position']}
                     url_placeholders.append(jira_url_data)
                 if "install_url" in board_item['data']['content']:
                     install_url_data = {'id': board_item['id'], 'position': board_item['position']}
                     url_placeholders.append(install_url_data)
-        print(f"URL Placeholder values: {url_placeholders}\n")
+        logger.info(f"URL Placeholder values: {url_placeholders}\n")
         return url_placeholders
 
     # Update the value of the app title on the board
     def update_app_name(self, app_name, board_app_title_values) -> None:
-        print(f"Updating app name on board.\n")
+        logger.info(f"Updating app name on board.\n")
         board_app_title_id = board_app_title_values[0]
         board_app_title_position = board_app_title_values[1]
         # remove unwanted values from position object
@@ -127,7 +128,7 @@ class boardUpdater(object):
 
     # Update the url fields (jira ticket and install url)
     def add_urls(self, content_url: str, url_values: dict) -> None:
-        print(f"Updating urls on board.\n")
+        logger.info(f"Updating urls on board.\n")
         id = url_values['id']
         position = url_values['position']
         position = self.position_obj_trimmer(position)
@@ -163,6 +164,6 @@ class boardUpdater(object):
     def send_update_request(self, url: str, payload: dict):
         response = rest.patch(url, payload, self.auth)
         if response.status_code in range(200, 210):
-            print(f"Updated board with ID {self.board_id}\n")
+            logger.info(f"Updated board with ID {self.board_id}\n")
         else:
-            print(f"Update failed for board with ID {self.board_id}\n")
+            logger.info(f"Update failed for board with ID {self.board_id}\n")
