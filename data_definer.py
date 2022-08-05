@@ -1,4 +1,4 @@
-import json
+from logging_dir.logging import logger
 
 class dataSummary():
     def __init__(self, request_data):
@@ -15,5 +15,5 @@ class dataSummary():
             self.project_link = request_data.project_link
             self.recording_link = request_data.recording_link
         except Exception as err:
-            raise err
+            logger.exception(err)
     

@@ -1,6 +1,7 @@
 import app_checks
 import jira_actions
 import text
+from logging_dir.logging import logger
 
 
 class appComponentCheck(object):
@@ -27,31 +28,31 @@ class appComponentCheck(object):
             if self.is_it_url(key):
                 self.url_checks(key, value)
             else:
-                print(f"No URL check needed for {key}")
+                logger.info(f"No URL check needed for {key}")
         # Check if any failures have been recorded
         if self.pass_check():
             return True
         
 
     def description_check(self):
-        print(f"\nChecking Description link.\n")
+        logger.info(f"\nChecking Description link.\n")
         # Nothing to check yet
         self.review_items['description'][1] = True
 
     def scopes_check(self):
-        print(f"\nChecking Scopes.\n")
+        logger.info(f"\nChecking Scopes.\n")
         # Nothing to check yet
         self.review_items['scopes'][1] = True
 
     def url_checks(self, key, val):
-        print(f"\nChecking {key} link.\n")
+        logger.info(f"\nChecking {key} link.\n")
         app_check_result = app_checks.url_check(val[0])
         if app_check_result[0]:
-            print("True - URL test passed.")
+            logger.info("True - URL test passed.")
             self.review_items[key][1] = True
         else:
             self.review_items[key].append(app_check_result[1])
-            print("False - URL test failed")
+            logger.info("False - URL test failed")
 
     def pass_check(self):
         # Check for False values and comment failures to Jira ticket
@@ -66,11 +67,11 @@ class appComponentCheck(object):
                     failures.append(message)
         # Comment the failures to the Jira ticket and reject ticket.
         if failures:
-            print(f"Rejecting app as {len(failures)} failures found.")
+            logger.info(f"Rejecting app as {len(failures)} failures found.")
             jira_actions.comment_to_ticket(self.app.issue_key, text.failure_message.format("\n".join(map(str,failures))), False)
             return False
         else:
-            print(f"{len(failures)} failures found. Proceeding with greeting message.")
+            logger.info(f"{len(failures)} failures found. Proceeding with greeting message.")
             return True
 
     # Check if review item has 'url' in name, if True expect URL value 

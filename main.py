@@ -4,11 +4,17 @@ from data_definer import dataSummary
 from app_validator import appComponentCheck
 import json
 import passed_checks
+from logging_dir.logging import logger
 
 app = FastAPI()
 
+# Function to initiate logging
+def logger_initiation():
+    logger.info("Miroboman is starting up.")
+
 success = json.dumps({'success': True}), 200, {'Content-Type': 'application/json'}
 bad_request = json.dumps({'success': False}), 400, {'Content-Type': 'application/json'}
+logger_initiation()
 
 # Root route
 @app.get("/")
@@ -34,14 +40,15 @@ class Data(BaseModel):
 def read_item(data: Data):
     webhook = data
     app = dataSummary(webhook)
+    logger.info(f"New app submission received with ticket number {app.issue_key}")
     app_check_result = appComponentCheck(app)
     if app_check_result.controller():
         # App has passed initial checks | Do more stuff.
-        print("Placeholder comment - App passed initial checks, sending welcome message.")
+        logger.info("App passed initial checks, sending welcome message.")
         passed_checks.welcomeActions(app)
-        print("Actions complete, app ready for review.")
+        logger.info("Actions complete, app ready for review.")
         return success
     else:
         # App has failed initial checks | do more stuff. 
-        print("Placeholder comment - App failed initial checks, exiting out of review process.")
+        logger.info("Placeholder comment - App failed initial checks, exiting out of review process.")
         return success

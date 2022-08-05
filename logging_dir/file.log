@@ -1,0 +1,22 @@
+04-Aug-22 10:50:27 - WARNING - This is a warning
+04-Aug-22 10:50:27 - ERROR - This is an error
+04-Aug-22 10:50:58 - WARNING - This is a warning
+04-Aug-22 10:50:58 - ERROR - This is an error
+04-Aug-22 10:57:24 - WARNING - This is a warning
+04-Aug-22 10:57:24 - ERROR - This is an error
+04-Aug-22 10:57:24 - WARNING - Miroboman is starting up.
+04-Aug-22 10:58:51 - WARNING - This is a warning
+04-Aug-22 10:58:51 - ERROR - This is an error
+04-Aug-22 10:58:51 - WARNING - Miroboman is starting up.
+04-Aug-22 11:29:10 - WARNING - This is a warning
+04-Aug-22 11:29:10 - ERROR - This is an error
+04-Aug-22 11:29:10 - WARNING - Miroboman is starting up.
+04-Aug-22 12:08:10 - WARNING - Miroboman is starting up.
+2022-08-04 12:17:00,505 - INFO - line: 15 - Miroboman is starting up.
+2022-08-04 12:17:00,507 - INFO - line: 75 - Started server process [31587]
+2022-08-04 12:17:00,507 - INFO - line: 45 - Waiting for application startup.
+2022-08-04 12:17:00,507 - INFO - line: 59 - Application startup complete.
+2022-08-04 12:17:31,096 - INFO - line: 252 - Shutting down
+2022-08-04 12:17:31,202 - INFO - line: 64 - Waiting for application shutdown.
+2022-08-04 12:17:31,219 - INFO - line: 75 - Application shutdown complete.
+2022-08-04 12:17:31,219 - INFO - line: 85 - Finished server process [31587]
