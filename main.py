@@ -32,13 +32,14 @@ class Data(BaseModel):
     setup_instructions: str
     scopes: str
     installation_url: str
-    project_link: str
     recording_link: str
+    integration_credentials: str
 
 # App review route
 @app.post("/review")
 def read_item(data: Data):
     webhook = data
+    print(f"WEBHOOK: {webhook}")
     app = dataSummary(webhook)
     logger.info(f"New app submission received with ticket number {app.issue_key}")
     app_check_result = appComponentCheck(app)
@@ -52,3 +53,6 @@ def read_item(data: Data):
         # App has failed initial checks | do more stuff. 
         logger.info("Placeholder comment - App failed initial checks, exiting out of review process.")
         return success
+
+
+# Typeform 

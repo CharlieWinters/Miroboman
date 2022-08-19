@@ -9,7 +9,7 @@ def get(url, headers=None):
     try:
         response_data = requests.get(url, headers=headers)
     except HTTPError as err:
-        raise err
+        logger.exception(err)
     status_check(response_data)
     return response_data
 
@@ -21,7 +21,7 @@ def post(url, payload, auth):
     try:
         response_data = requests.post(url, data=payload, headers=headers)
     except HTTPError as err:
-        raise err
+        logger.exception(err)
     status_check(response_data)
     return response_data
 
@@ -33,7 +33,7 @@ def put(url, payload, auth):
     try:
         response_data = requests.put(url, data=payload, headers=headers)
     except HTTPError as err:
-        raise err
+        logger.exception(err)
     status_check(response_data)    
     return response_data
 
@@ -45,7 +45,7 @@ def patch(url, payload, auth):
     try:
         response_data = requests.patch(url, data=payload, headers=headers)
     except HTTPError as err:
-        raise err
+        logger.exception(err)
     status_check(response_data)
     return response_data
 
