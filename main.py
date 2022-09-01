@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from data_definer import dataSummary
 from app_validator import appComponentCheck
@@ -35,11 +35,14 @@ class Data(BaseModel):
     recording_link: str
     integration_credentials: str
 
+# Data model for typeform
+class FormData(BaseModel):
+    payload: dict
+
 # App review route
 @app.post("/review")
 def read_item(data: Data):
     webhook = data
-    print(f"WEBHOOK: {webhook}")
     app = dataSummary(webhook)
     logger.info(f"New app submission received with ticket number {app.issue_key}")
     app_check_result = appComponentCheck(app)
@@ -56,3 +59,8 @@ def read_item(data: Data):
 
 
 # Typeform 
+@app.post("/typeform_submission")
+async def typeform_processor(request: Request):
+    webhook = await request.json()
+    print(webhook)
+    return success
