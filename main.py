@@ -5,6 +5,7 @@ from app_validator import appComponentCheck
 import json
 import passed_checks
 from logging_dir.logging import logger
+from typeform import typeform_manager
 
 app = FastAPI()
 
@@ -62,5 +63,8 @@ def read_item(data: Data):
 @app.post("/typeform_submission")
 async def typeform_processor(request: Request):
     webhook = await request.json()
-    print(webhook)
+    logger.info(f"New Typeform submission")
+    #print(webhook)
+    typeform_manager.boss(webhook)
+    #typeform_processing.url_extractor(typeform_data)
     return success
