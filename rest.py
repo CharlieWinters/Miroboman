@@ -14,14 +14,24 @@ def get(url, headers=None):
     return response_data
 
 # POST
-def post(url, payload, auth):
+def post(url, payload, auth, custom_header=None, file=None):
     logger.info(f"Making a Post to {url}")
     headers = {'Authorization': f'{auth}',
                 'Content-Type': 'application/json'}
-    try:
-        response_data = requests.post(url, data=payload, headers=headers)
-    except HTTPError as err:
-        logger.exception(err)
+    if custom_header != None:
+        # POST with custom header and pass files to be added
+        headers = {'Authorization': f'{auth}',
+                f'{custom_header[0]}': f'{custom_header[1]}'}
+        try:
+            response_data = requests.post(url, data=payload, headers=headers, files=file)
+        except HTTPError as err:
+            logger.exception(err)
+    else:
+        # Normal Post
+        try:
+            response_data = requests.post(url, data=payload, headers=headers)
+        except HTTPError as err:
+            logger.exception(err)
     status_check(response_data)
     return response_data
 

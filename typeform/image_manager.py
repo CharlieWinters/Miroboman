@@ -11,14 +11,18 @@ def image_consultant(app_data):
     list_of_images = url_extractor(app_data.full_condensed_typeform)
     if not list_of_images:
         logger.info("No images provided, exiting out of process")
-        return 
+        return False
     else:
         try:
             folder_path = folder_creator(app_data)
         except Exception as err:
             raise err
-        for image in list_of_images['items']:
-            imageHandler(image, folder_path)
+        if not folder_path:
+            return
+        else:
+            for image in list_of_images['items']:
+                imageHandler(image, folder_path)
+            return True
 
 
 class imageHandler(object):
@@ -49,11 +53,11 @@ def folder_creator(app_data):
     dir = (app_data.app_name[0].lower()).replace(" ", "_")
     logger.info(f"Creating dir for {dir}")
     path = os.path.join(parent_dir, dir)
-    print(path)
     if not os.path.isdir(path):
         os.mkdir(path)
     else:
-        logger.info(f"{path} already exists.")
+        logger.info(f"Directory with name '{path[path.rindex('/')+1:]}' already exists. Exiting out of typeform automation.")
+        return False
     return path
 
 
@@ -93,3 +97,22 @@ def image_name_creator(response_title):
         logger.info(f"Logo found, creating image name.")
         image_name = "logo"
     return image_name
+
+# Function to retrieve the list of files in a dir
+def file_grabber(dir_name):
+    full_dir = f"{os.getcwd()}/typeform/temp/{dir_name}"
+    logger.info(f"Grabbing files from {full_dir}")
+    files = os.listdir(full_dir)
+    print(f"FILES! {files}")
+    if len(files) == 0:
+        logger.info(f"dir is empty, nothing to add - existing typeform automation.")
+        return False
+    else:
+        return files
+
+def file_list_creator(files, dir):
+    file_list = []
+    for file in files:
+        file_block = ('file', (f"{file}", open(f"{dir}{file}",'rb'), 'image/jpeg'))
+        file_list.append(file_block)
+    return file_list   
