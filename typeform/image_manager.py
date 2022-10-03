@@ -1,4 +1,5 @@
 import os
+import shutil
 from logging_dir.logging import logger
 import re
 import rest
@@ -115,4 +116,11 @@ def file_list_creator(files, dir):
     for file in files:
         file_block = ('file', (f"{file}", open(f"{dir}{file}",'rb'), 'image/jpeg'))
         file_list.append(file_block)
-    return file_list   
+    return file_list
+
+def clean_up(full_dir):
+    logger.info(f"Cleaning up.\n\n Removing {full_dir}")
+    try:
+        shutil.rmtree(full_dir)
+    except OSError as err:
+        logger.exception(f"Error encoutered: \n{err}")

@@ -33,3 +33,4 @@ def boss(webhook):
     path = f"{os.getcwd()}/typeform/temp/{dir_name}/"
     # Add images to subtask
     jira_actions.add_images_to_jira(subtask, image_manager.file_list_creator(files, path))
+    image_manager.clean_up(path)
