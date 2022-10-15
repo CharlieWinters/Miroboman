@@ -12,8 +12,8 @@ class dataSummary():
             self.setup_instructions = request_data.setup_instructions
             self.scopes = request_data.scopes
             self.installation_url = request_data.installation_url
-            self.project_link = request_data.project_link
             self.recording_link = request_data.recording_link
+            self.installation_credentials = request_data.integration_credentials
         except Exception as err:
             logger.exception(err)
     

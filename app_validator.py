@@ -14,8 +14,8 @@ class appComponentCheck(object):
                             "setup_instructions_url": [app.setup_instructions, False],
                             "scopes": [app.scopes, False],
                             "installation_url": [app.installation_url, False],
-                            "project_url": [app.project_link, False],
-                            "recording_url": [app.recording_link, False]
+                            "recording_url": [app.recording_link, False],
+                            "installation_credentials": [app.installation_credentials, False]
                             }
         
         #self.controller()
@@ -23,6 +23,7 @@ class appComponentCheck(object):
     def controller(self):
         self.description_check()
         self.scopes_check()
+        self.integration_creds_check()
         for key, value in self.review_items.items():
             
             if self.is_it_url(key):
@@ -43,6 +44,11 @@ class appComponentCheck(object):
         logger.info(f"\nChecking Scopes.\n")
         # Nothing to check yet
         self.review_items['scopes'][1] = True
+
+    def integration_creds_check(self):
+        logger.info(f"\nChecking Integration instructions.\n")
+        # Nothing to check yet
+        self.review_items['installation_credentials'][1] = True
 
     def url_checks(self, key, val):
         logger.info(f"\nChecking {key} link.\n")

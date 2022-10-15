@@ -26,6 +26,8 @@ welcome_message = """Hey there! \n \
 
     [Miro Marketplace App Listing Submission form|https://miro-survey.typeform.com/to/lspd7BzP]\n \
 
+    Please refer to our [Marketplace Listing Guidelines|https://developers.miro.com/docs/marketplace-listing-guidelines] for more details. 
+
     We'll be in touch to let you know the outcomes of each stage and if we have any questions or encounter issues.\n \
     
     Cheers,\n \
