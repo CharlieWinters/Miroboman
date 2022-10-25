@@ -1,4 +1,4 @@
-import rest
+from shared import rest
 import config
 import json
 from logging_dir.logging import logger

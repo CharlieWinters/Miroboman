@@ -1,5 +1,4 @@
-import app_checks
-import jira_actions
+from jira import app_checks, jira_actions
 import text
 from logging_dir.logging import logger
 

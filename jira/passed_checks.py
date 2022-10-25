@@ -1,6 +1,6 @@
 import config
 import text
-import jira_actions
+from jira import jira_actions
 from miro_boards import boards
 from logging_dir.logging import logger
 

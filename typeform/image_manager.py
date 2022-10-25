@@ -2,7 +2,7 @@ import os
 import shutil
 from logging_dir.logging import logger
 import re
-import rest
+from shared import rest
 
 
 
