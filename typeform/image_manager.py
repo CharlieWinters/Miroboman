@@ -2,7 +2,7 @@ import os
 import shutil
 from logging_dir.logging import logger
 import re
-import rest
+from shared import rest
 
 
 
@@ -119,7 +119,7 @@ def file_list_creator(files, dir):
     return file_list
 
 def clean_up(full_dir):
-    logger.info(f"Cleaning up.\n\n Removing {full_dir}")
+    logger.info(f"Cleaning up. Removing {full_dir}")
     try:
         shutil.rmtree(full_dir)
     except OSError as err:

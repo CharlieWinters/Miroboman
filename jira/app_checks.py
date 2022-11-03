@@ -1,6 +1,5 @@
-import rest
-from data_definer import dataSummary
-import jira_actions
+import shared.rest as rest
+from shared.data_definer import dataSummary
 from logging_dir.logging import logger
 
 def url_check(url):

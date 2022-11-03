@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
-from data_definer import dataSummary
-from app_validator import appComponentCheck
+from shared import data_definer
+from jira import app_validator
 import json
-import passed_checks
+from jira import passed_checks
 from logging_dir.logging import logger
 from typeform import typeform_manager
 
@@ -20,6 +20,7 @@ logger_initiation()
 # Root route
 @app.get("/")
 async def root():
+    logger.info("Someone hit the root.")
     return {"message": "Markitman reporting for duty!"}
 
 # Data model for app reviews
@@ -44,9 +45,9 @@ class FormData(BaseModel):
 @app.post("/review")
 def read_item(data: Data):
     webhook = data
-    app = dataSummary(webhook)
+    app = data_definer.dataSummary(webhook)
     logger.info(f"New app submission received with ticket number {app.issue_key}")
-    app_check_result = appComponentCheck(app)
+    app_check_result = app_validator.appComponentCheck(app)
     if app_check_result.controller():
         # App has passed initial checks | Do more stuff.
         logger.info("App passed initial checks, sending welcome message.")

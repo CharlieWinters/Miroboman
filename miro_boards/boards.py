@@ -1,6 +1,6 @@
 from typing import Tuple
 import config
-import rest
+from shared import rest
 import json
 from logging_dir.logging import logger
 

@@ -1,6 +1,6 @@
 from logging_dir.logging import logger
 from typeform import typeform_processing, typeform_data_points, image_manager
-import jira_actions
+from jira import jira_actions
 import os
 
 
