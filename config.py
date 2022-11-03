@@ -1,0 +1,2 @@
+jira_auth = ""
+jira_base_url = "https://app-review.atlassian.net/"
