@@ -104,7 +104,6 @@ def file_grabber(dir_name):
     full_dir = f"{os.getcwd()}/typeform/temp/{dir_name}"
     logger.info(f"Grabbing files from {full_dir}")
     files = os.listdir(full_dir)
-    print(f"FILES! {files}")
     if len(files) == 0:
         logger.info(f"dir is empty, nothing to add - existing typeform automation.")
         return False
