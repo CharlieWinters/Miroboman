@@ -64,18 +64,14 @@ def folder_creator(app_data):
 
 # Function to extract file urls from response data
 def url_extractor(data):
-    #print(f"{data}")
     responses_with_urls = {"items": []}
     for response in data['fields']:
-        #print(response)
         if 'file_url' in response['type']:
             logger.info("found file url")
             visual_name = image_name_creator(response['title'])
             url = response['response']
             image_block = {"filename": visual_name, "url": url}
-            #print(image_block)
             responses_with_urls['items'].append(image_block)
-    #print(responses_with_urls)
     if len(responses_with_urls['items']) == 0:
         logger.info("No uploaded images provided")
         return False
