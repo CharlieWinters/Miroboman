@@ -4,7 +4,7 @@ Miroboman is an automation web service for facilitating app submisisons to the M
 
 For the full process flow see [this board](https://miro.com/app/board/uXjVOivZVkk=/). 
 
-The actions it performs are:
+# What Miroboman does #
 
 - Automated app checks
     - Valid URLs are provided for provided URLs
