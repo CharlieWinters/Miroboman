@@ -1,16 +1,20 @@
 import os
 
-## Jira ##
+## Jira ##       
 
 # miro-tests Jira #
 
-jira_auth = os.environ["jira_auth"]
-jira_base_url = "https://miro-tests.atlassian.net/"
-jira_project_key = 'ART'
+jira_auth = os.environ["JIRA_AUTH"]
+jira_base_url = os.environ["JIRA_BASE_URL"]
+jira_project_key = os.environ["JIRA_PROJECT_KEY"]
+
+# Prod Jira #
+
+jira_auth
 
 ## Miro ##
 
-miro_auth = os.environ["miro_auth"]
+miro_auth = os.environ["MIRO_AUTH"]
 miro_base_url = "https://api.miro.com/v2/"
 miro_board_url = "https://miro.com/app/board/"
 miro_app_review_proj_id = "3458764528159331663"

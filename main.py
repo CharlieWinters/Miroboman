@@ -65,7 +65,5 @@ def read_item(data: Data):
 async def typeform_processor(request: Request):
     webhook = await request.json()
     logger.info(f"New Typeform submission")
-    #print(webhook)
     typeform_manager.boss(webhook)
-    #typeform_processing.url_extractor(typeform_data)
     return success

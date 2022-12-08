@@ -34,7 +34,6 @@ class FromDataExtractor():
         for key in self.raw_form_data['form_response']['answers']:
             for entry in self.typeform_obj['fields']:
                 if key['field']['id'] == entry['id']:
-                    #print(f"Match! - {key['field']['id']} and {entry['id']} for {entry['title']}")
                     if 'text' in key['type']:
                         new_vals = {'type': key['type'], 'response': key['text']}
                         entry.update(new_vals)
