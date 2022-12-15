@@ -9,7 +9,6 @@ class appComponentCheck(object):
         self.app = app
         # Any Dict entry that will contain a URL must have a key that ends in '_url'
         self.review_items = {
-                            "description": [app.description, False],
                             "setup_instructions_url": [app.setup_instructions, False],
                             "scopes": [app.scopes, False],
                             "installation_url": [app.installation_url, False],
@@ -20,7 +19,8 @@ class appComponentCheck(object):
         #self.controller()
 
     def controller(self):
-        self.description_check()
+        # removed description due to https://github.com/CharlieWinters/Miroboman/issues/3
+        # self.description_check()
         self.scopes_check()
         self.integration_creds_check()
         for key, value in self.review_items.items():
@@ -33,11 +33,14 @@ class appComponentCheck(object):
         if self.pass_check():
             return True
         
-
+    ''' 
+    # removed description due to https://github.com/CharlieWinters/Miroboman/issues/3
+    # Once fixed the entry in self.review_items will need to be added back i.e. '"description": [app.description, False],'
     def description_check(self):
         logger.info(f"\nChecking Description link.\n")
         # Nothing to check yet
         self.review_items['description'][1] = True
+    '''
 
     def scopes_check(self):
         logger.info(f"\nChecking Scopes.\n")

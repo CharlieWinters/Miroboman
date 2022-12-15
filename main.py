@@ -28,7 +28,8 @@ class Data(BaseModel):
     issue_key: str
     app_name: str
     summary: str
-    description: str
+    # removed description due to https://github.com/CharlieWinters/Miroboman/issues/3
+    #description: str
     user_id: str
     app_id: str
     setup_instructions: str
