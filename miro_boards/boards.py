@@ -4,6 +4,7 @@ from shared import rest
 import json
 from logging_dir.logging import logger
 
+
 # Make a copy of the app review board template for this app review.
 def duplicate_review_board(app):
         logger.info("Duplicating App review board.")
@@ -52,9 +53,9 @@ class boardUpdater(object):
         full_board_items = self.get_board_item_data(self.board_id)
         board_app_title_values = self.get_board_title_id(full_board_items)
         url_values = self.get_url_placeholder_ids(full_board_items)
-        self.update_app_name(self.app.summary, board_app_title_values)
+        self.update_app_name(self.app.app_name, board_app_title_values)
          # Jira call
-        self.add_urls(f"{config.jira_base_url}browse/{self.app.issue_key}", url_values[0])
+        self.add_urls(f"{config.jira_base_url}servicedesk/customer/portal/2/{self.app.issue_key}", url_values[0])
         # install url call
         self.add_urls(self.app.installation_url, url_values[1])
 
