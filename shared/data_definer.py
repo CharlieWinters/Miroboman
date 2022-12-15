@@ -6,7 +6,8 @@ class dataSummary():
             self.issue_key = request_data.issue_key
             self.app_name = request_data.app_name
             self.summary = request_data.summary
-            self.description = request_data.description
+            # removed description due to https://github.com/CharlieWinters/Miroboman/issues/3
+            #self.description = request_data.description
             self.user_id = request_data.user_id
             self.app_id = request_data.app_id
             self.setup_instructions = request_data.setup_instructions
