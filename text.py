@@ -12,11 +12,11 @@ welcome_message = """Hey there! \n \
     *Design/Functionality*\n \
 
     We check the design elements of the app's menus and components for consistency, and ensure that the app functions as advertised. More details of what's expected can be found in our [public guidelines|https://developers.miro.com/docs/design-guidelines].
-    The Design review will be performed on the following [Miro board|{1}], once the review has started you will get access and be able to collaborate with the team.\n \
+    The Design review will be performed on a Miro board which will be shared with you once the review has started, you will given access to comment and so will be able to collaborate with the team.\n \
 
     *Security*\n \
 
-    We check for things like the presence of security headers and HSTS on your server hosting the app. More details can be found in our [ public guidelines|https://developers.miro.com/docs/security-guidelines].
+    We check for things like the presence of security headers and HSTS on your server hosting the app. More details can be found in our [public guidelines|https://developers.miro.com/docs/security-guidelines].
     Once the security review has been completed one of our security engineers will add document with the results to the ticket. 
     \n \
 
@@ -46,3 +46,19 @@ failure_message = """Thanks for submitting your app to the Miro Marketplace!\n \
  Cheers,\n \
 
  Miro Marketplace Team."""
+
+review_started_message = """Hello again! \n \
+
+    We've just kicked off the review process for your app '{0}', as mentioned in our previous comment this consists of *Security* and *Design* checks.  \n \
+
+    A ticket has automatically been created with our Security team who will run checks against the public [App Security Guidelines|https://developers.miro.com/docs/security-guidelines]. *It's important you ensure your app's hosting infrastructre is inline with these guidelines otherwise the submission will be rejected*. 
+
+    The Design review will take place on the Miro Board linked below, this review will be performed against the public [App Design Guidelines|https://developers.miro.com/docs/design-guidelines]. You should have been granted access to this board, please add any comments you may have throughout the review.  \n \
+
+    [Miro Design App Review Board|{1}] \n \
+
+    Don't hestitate to add a comment here if you have any further questions! \n \
+
+    Cheers,\n \
+
+    Miro Marketplace Team."""

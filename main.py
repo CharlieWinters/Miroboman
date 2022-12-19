@@ -1,11 +1,12 @@
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
-from shared import data_definer
+from shared import data_definer, controller
 from jira import app_validator
 import json
 from jira import passed_checks
 from logging_dir.logging import logger
 from typeform import typeform_manager
+from miro_boards import boards
 
 app = FastAPI()
 
@@ -59,6 +60,15 @@ def read_item(data: Data):
         # App has failed initial checks | do more stuff. 
         logger.info("Placeholder comment - App failed initial checks, exiting out of review process.")
         return success
+
+@app.post("/in-progress")
+def read_item(data: Data):
+    logger.info(f"App review started")
+    webhook = data
+    app = data_definer.dataSummary(webhook)
+    logger.info(f"App review started for {app.issue_key}")
+    controller.app_review_started(app)
+    return success
 
 
 # Typeform 
