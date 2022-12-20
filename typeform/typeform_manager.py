@@ -11,6 +11,12 @@ def boss(webhook):
     typeform_data = typeform_data_obj.controller()
     # Create typeform data block - this is all we'll need from here on out
     typeform_app = typeform_data_points.typeformDataSummary(typeform_data)
+
+    jira_key = jira_actions.find_jira_by_appid(typeform_app.app_id[0])
+    # Check if jira ticket is found with matching ID
+    if not jira_key:
+        logger.info("Abandoning typeform autoamtion, no Jira ticket found.")
+        return
     
     try:
         if not image_manager.image_consultant(typeform_app):
@@ -18,11 +24,7 @@ def boss(webhook):
     except Exception as err:
         raise err
 
-    jira_key = jira_actions.find_jira_by_appid(typeform_app.app_id[0])
-
-    if not jira_key:
-        logger.info("Abandoning typeform autoamtion, no Jira ticket found.")
-        return
+    
     # Create subtask
     subtask = jira_actions.create_subtask(jira_key, typeform_app.app_name[0])
     # The name of the directory for where the app's images are stored - this is a dupe of imagemanager.folder_creator - this will need refactoring
