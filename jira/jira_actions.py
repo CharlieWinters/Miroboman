@@ -75,3 +75,23 @@ def add_images_to_jira(issue_key, file):
     custom_header = ['X-Atlassian-Token', 'no-check']
     rest.post(url, payload, config.jira_auth, custom_header, file)
 
+# Get the details of a Jira ticket
+def get_jira_issue_details(jira_key, fields=None):
+    if fields is None:
+        url = f"{config.jira_base_url}rest/api/2/issue/{jira_key}"
+    else:
+        url = f"{config.jira_base_url}rest/api/2/issue/{jira_key}?fields={fields}"
+    headers = {'Authorization': f'{config.jira_auth}'}
+    issue_details = rest.get(url, headers=headers)
+    return issue_details.json()
+
+# Update Jira ticket field(s)
+def update_field(jira_key, data):
+    url = f"{config.jira_base_url}rest/api/2/issue/{jira_key}"
+    auth = config.jira_auth
+    payload = json.dumps({
+  "fields": {
+    "description": f"{data}"
+            }
+        })
+    response = rest.put(url, payload, auth)

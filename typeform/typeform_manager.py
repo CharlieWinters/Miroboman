@@ -34,4 +34,25 @@ def boss(webhook):
     path = f"{os.getcwd()}/typeform/temp/{dir_name}/"
     # Add images to subtask
     jira_actions.add_images_to_jira(subtask, image_manager.file_list_creator(files, path))
+    # Retrieve jira issue description and create the updated one
+    updated_description = description_builder(jira_actions.get_jira_issue_details(subtask, "description,attachment"))
+    # Update description on ticket
+    jira_actions.update_field(subtask, updated_description)
+    # Remove the image files from the server
     image_manager.clean_up(path)
+
+# Add attachments to description
+def description_builder(ticket_details):
+    description = ticket_details['fields']['description']
+    attachments = ticket_details['fields']['attachment']
+    # Place holder str vairable
+    attachment_block = "\n"
+    # Build the Markdown table for provided images, format is as below.
+    """ |Logo| !logo.jpeg|thumbnail! |
+        |Visual 1| !visual_1.png|thumbnail! | """
+    for image in attachments:
+        temp_string = f"|{image['filename'].split('.')[0].replace('_', ' ')}|!{image['filename']}|thumbnail!|\n"
+        attachment_block += temp_string
+    # Append the Markdown table to the original description
+    new_description = description + attachment_block
+    return new_description
