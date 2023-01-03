@@ -13,6 +13,10 @@ class typeformDataSummary():
             self.tos = [i['response'] for i in request_data['fields'] if config.typeform_tos in i['id']]
             self.privacy_policy = [i['response'] for i in request_data['fields'] if config.typeform_privacy_policy in i['id']]
             self.helpfull_links = [i['response'] for i in request_data['fields'] if config.typeform_helpfull_links in i['id']]
+            self.typeform_key_features = [i['response'] for i in request_data['fields'] if config.typeform_key_features in i['id']]
+            self.typeform_connect_how = [i['response'] for i in request_data['fields'] if config.typeform_connect_how in i['id']]
+            self.typeform_categories = [i['response'] for i in request_data['fields'] if config.typeform_categories in i['id']]
+            self.typeform_tags = [i['response'] for i in request_data['fields'] if config.typeform_tags in i['id']]
             self.full_condensed_typeform = request_data
         except Exception as err:
             logger.exception(err)

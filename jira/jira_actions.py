@@ -42,18 +42,20 @@ def find_jira_by_appid(app_id):
         return False
 
 # Create subtask for typeform assets
-def create_subtask(jira_key, app_name):
+def create_subtask(jira_key, typeform_data):
     url = f"{config.jira_base_url}rest/api/2/issue"
     payload = json.dumps({
         "fields": {
             "project": {
             "key": f"{config.jira_project_key}"
             },
-            "summary": f"Marketing assets for {app_name}",
+            "summary": f"Marketing assets for {typeform_data.app_name[0]}",
             "parent": {
             "key": f"{jira_key}"
             },
-            "description": f"This is a subtask to {jira_key} for reviewing app listing assets",
+            "description": f"|App Name|{typeform_data.app_name[0]}|\n|App ID|{typeform_data.app_id[0]}|\n|Developer Name|{typeform_data.dev_name[0]}|\n|Developer Email|{typeform_data.dev_email[0]}|\n|Short Description|{typeform_data.short_desc[0]}|\n \
+                |Full Description|{typeform_data.full_desc[0]}|\n|Terms of Service|{typeform_data.tos[0]}|\n|Privacy Policy|{typeform_data.privacy_policy[0]}|\n|Helpfull Links|{typeform_data.helpfull_links[0]}|\n|Key Features|{typeform_data.typeform_key_features[0]}|\n \
+                    |How to connect|{typeform_data.typeform_connect_how[0]}|\n|Categories|{typeform_data.typeform_categories[0]['labels']}|\n|Tags|{typeform_data.typeform_tags}|",
             "issuetype": {
             "id": "10003"
             }
