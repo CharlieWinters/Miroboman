@@ -2,15 +2,9 @@ import os
 
 ## Jira ##       
 
-# miro-tests Jira #
-
 jira_auth = os.environ["JIRA_AUTH"]
 jira_base_url = os.environ["JIRA_BASE_URL"]
 jira_project_key = os.environ["JIRA_PROJECT_KEY"]
-
-# Prod Jira #
-
-jira_auth
 
 ## Miro ##
 

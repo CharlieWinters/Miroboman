@@ -90,8 +90,9 @@ def update_field(jira_key, data):
     url = f"{config.jira_base_url}rest/api/2/issue/{jira_key}"
     auth = config.jira_auth
     payload = json.dumps({
-  "fields": {
+    "fields": {
     "description": f"{data}"
             }
         })
     response = rest.put(url, payload, auth)
+    
