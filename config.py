@@ -5,6 +5,7 @@ import os
 jira_auth = os.environ["JIRA_AUTH"]
 jira_base_url = os.environ["JIRA_BASE_URL"]
 jira_project_key = os.environ["JIRA_PROJECT_KEY"]
+jira_subtask_id = os.environ["JIRA_SUBTASK_ID"]
 
 ## Miro ##
 

@@ -26,7 +26,7 @@ def find_jira_by_appid(app_id):
     logger.info(f"Searching for existing issues with appId {app_id}")
     url = f"{config.jira_base_url}rest/api/3/search"
     payload = json.dumps({
-        "jql": f"project = art and 'App Id[Short text]' ~ '{app_id}'"
+        "jql": f"project = {config.jira_project_key.lower()} and 'App Id[Short text]' ~ '{app_id}'"
     })
     results = rest.post(url, payload, config.jira_auth)
     results_json = results.json()
@@ -57,7 +57,7 @@ def create_subtask(jira_key, typeform_data):
                 |Full Description|{typeform_data.full_desc[0]}|\n|Terms of Service|{typeform_data.tos[0]}|\n|Privacy Policy|{typeform_data.privacy_policy[0]}|\n|Helpfull Links|{typeform_data.helpfull_links[0]}|\n|Key Features|{typeform_data.typeform_key_features[0]}|\n \
                     |How to connect|{typeform_data.typeform_connect_how[0]}|\n|Categories|{typeform_data.typeform_categories[0]['labels']}|\n|Tags|{typeform_data.typeform_tags}|",
             "issuetype": {
-            "id": "10003"
+            "id": f"{config.jira_subtask_id}"
             }
         }
     })
@@ -95,4 +95,3 @@ def update_field(jira_key, data):
             }
         })
     response = rest.put(url, payload, auth)
-    

@@ -7,9 +7,6 @@
 
 
 
-export LOCAL_TESTING='LOCAL'
-# add this variablein the console so we can check if we're running locally or not
-
 export JIRA_AUTH=''
 # set the jira access token
 
@@ -19,9 +16,13 @@ export JIRA_BASE_URL=''
 export JIRA_PROJECT_KEY=''
 # set the jira project key
 
+export JIRA_SUBTASK_ID=''
+# set the subtask if for the Jira project
+# 10003 for miro-tests.atlassian
+# 10007 for miro.atlassian
+
 export MIRO_AUTH=''
 # set the MIRO auth 
-
 
 PYTHON=$(which python3)
 # Set python interpreter you want for your environment
