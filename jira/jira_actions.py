@@ -26,7 +26,7 @@ def find_jira_by_appid(app_id):
     logger.info(f"Searching for existing issues with appId {app_id}")
     url = f"{config.jira_base_url}rest/api/3/search"
     payload = json.dumps({
-        "jql": f"project = art and 'App Id[Short text]' ~ '{app_id}'"
+        "jql": f"project = {config.jira_project_key.lower()} and 'App Id[Short text]' ~ '{app_id}'"
     })
     results = rest.post(url, payload, config.jira_auth)
     results_json = results.json()
@@ -42,20 +42,22 @@ def find_jira_by_appid(app_id):
         return False
 
 # Create subtask for typeform assets
-def create_subtask(jira_key, app_name):
+def create_subtask(jira_key, typeform_data):
     url = f"{config.jira_base_url}rest/api/2/issue"
     payload = json.dumps({
         "fields": {
             "project": {
             "key": f"{config.jira_project_key}"
             },
-            "summary": f"Marketing assets for {app_name}",
+            "summary": f"Marketing assets for {typeform_data.app_name[0]}",
             "parent": {
             "key": f"{jira_key}"
             },
-            "description": f"This is a subtask to {jira_key} for reviewing app listing assets",
+            "description": f"|App Name|{typeform_data.app_name[0]}|\n|App ID|{typeform_data.app_id[0]}|\n|Developer Name|{typeform_data.dev_name[0]}|\n|Developer Email|{typeform_data.dev_email[0]}|\n|Short Description|{typeform_data.short_desc[0]}|\n \
+                |Full Description|{typeform_data.full_desc[0]}|\n|Terms of Service|{typeform_data.tos[0]}|\n|Privacy Policy|{typeform_data.privacy_policy[0]}|\n|Helpfull Links|{typeform_data.helpfull_links[0]}|\n|Key Features|{typeform_data.typeform_key_features[0]}|\n \
+                    |How to connect|{typeform_data.typeform_connect_how[0]}|\n|Categories|{typeform_data.typeform_categories[0]['labels']}|\n|Tags|{typeform_data.typeform_tags}|",
             "issuetype": {
-            "id": "10003"
+            "id": f"{config.jira_subtask_id}"
             }
         }
     })
@@ -73,3 +75,23 @@ def add_images_to_jira(issue_key, file):
     custom_header = ['X-Atlassian-Token', 'no-check']
     rest.post(url, payload, config.jira_auth, custom_header, file)
 
+# Get the details of a Jira ticket
+def get_jira_issue_details(jira_key, fields=None):
+    if fields is None:
+        url = f"{config.jira_base_url}rest/api/2/issue/{jira_key}"
+    else:
+        url = f"{config.jira_base_url}rest/api/2/issue/{jira_key}?fields={fields}"
+    headers = {'Authorization': f'{config.jira_auth}'}
+    issue_details = rest.get(url, headers=headers)
+    return issue_details.json()
+
+# Update Jira ticket field(s)
+def update_field(jira_key, data):
+    url = f"{config.jira_base_url}rest/api/2/issue/{jira_key}"
+    auth = config.jira_auth
+    payload = json.dumps({
+    "fields": {
+    "description": f"{data}"
+            }
+        })
+    response = rest.put(url, payload, auth)

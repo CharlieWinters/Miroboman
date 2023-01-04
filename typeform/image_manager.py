@@ -54,11 +54,11 @@ def folder_creator(app_data):
     dir = (app_data.app_name[0].lower()).replace(" ", "_")
     logger.info(f"Creating dir for {dir}")
     path = os.path.join(parent_dir, dir)
-    if not os.path.isdir(path):
-        os.mkdir(path)
-    else:
-        logger.info(f"Directory with name '{path[path.rindex('/')+1:]}' already exists. Exiting out of typeform automation.")
-        return False
+    if os.path.isdir(path):
+        logger.info(f"Directory with name '{path[path.rindex('/')+1:]}' already exists. Removing exisitng dir.")
+        clean_up(path)
+    # Create the 
+    os.mkdir(path)
     return path
 
 
@@ -81,7 +81,6 @@ def url_extractor(data):
 
 # Function to create the unqique key for each image found in the list
 def image_name_creator(response_title):
-    #print(response_title)
     if "app visual" in response_title:
         logger.info(f"Creating image name from: {response_title}")
         # extract the first number from the title of the questions - format is:

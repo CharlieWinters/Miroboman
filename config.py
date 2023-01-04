@@ -2,15 +2,10 @@ import os
 
 ## Jira ##       
 
-# miro-tests Jira #
-
 jira_auth = os.environ["JIRA_AUTH"]
 jira_base_url = os.environ["JIRA_BASE_URL"]
 jira_project_key = os.environ["JIRA_PROJECT_KEY"]
-
-# Prod Jira #
-
-jira_auth
+jira_subtask_id = os.environ["JIRA_SUBTASK_ID"]
 
 ## Miro ##
 
@@ -36,3 +31,7 @@ typeform_full_desc = 'ZJ9hXw2xRUAj'
 typeform_tos = 'FaQA5YgAK2y5'
 typeform_privacy_policy = '1uSGj4dUq69O'
 typeform_helpfull_links = 'qYwAcY0nW3fq'
+typeform_key_features = 'PaVNbXNqcCxk'
+typeform_connect_how = 'xYplFTjflDUE'
+typeform_categories = 'iwVLn5XRrXQR'
+typeform_tags = 'YIMrLuGsvmP8'

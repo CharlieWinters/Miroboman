@@ -44,7 +44,7 @@ def put(url, payload, auth):
         response_data = requests.put(url, data=payload, headers=headers)
     except HTTPError as err:
         logger.exception(err)
-    status_check(response_data)    
+    status_check(response_data)  
     return response_data
 
 # PATCH
@@ -65,3 +65,4 @@ def status_check(status):
         logger.info(f"There was an issue with the call, status_code is {status.status_code}\n")
         logger.info(f"Error details are: {status.content}")
         logger.info(f"Call details are: {status.headers}")
+        logger.info(f"Body details are: {status.request.body}")
