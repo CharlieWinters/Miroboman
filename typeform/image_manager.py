@@ -49,7 +49,8 @@ class imageHandler(object):
 
 # Create dir for images to live
 def folder_creator(app_data):
-    cwd = os.getcwd() 
+    cwd = os.getcwd()
+    logger.info(f"Current working directory is{cwd}") 
     parent_dir = f"{cwd}/typeform/temp/"
     dir = (app_data.app_name[0].lower()).replace(" ", "_")
     logger.info(f"Creating dir for {dir}")
