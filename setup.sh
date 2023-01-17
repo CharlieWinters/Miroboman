@@ -6,6 +6,7 @@
 ### Run this script with 'source setup.sh'
 
 
+export ENVIRONMENT=''
 
 export JIRA_AUTH=''
 # set the jira access token
