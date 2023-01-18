@@ -25,6 +25,7 @@ miro_team_id = "3074457345710752794"
 
 if os.environ["ENVIRONMENT"] == 'LOCAL':
     logger.info("Miroboman is being run locally.")
+    env = "DEV"
     typeform_app_name = 'Aepp7sDitPj0'
     typeform_app_id = 'ZiZlqPZXDBHn'
     typeform_dev_name = '10SaXHTpUvHh'
@@ -39,6 +40,7 @@ if os.environ["ENVIRONMENT"] == 'LOCAL':
     typeform_categories = 'UdFjjrTkTkYj'
     typeform_tags = 'UsXsUBfDyQzM'
 else:
+    env = "PROD"
     typeform_app_name = 'gxJcINDmMzWc'
     typeform_app_id = 'j3olmO5Sl7Ax'
     typeform_dev_name = 'AhjQFofHGzwR'
