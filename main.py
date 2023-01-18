@@ -7,6 +7,7 @@ from jira import passed_checks
 from logging_dir.logging import logger
 from typeform import typeform_manager
 from miro_boards import boards
+import config
 
 app = FastAPI()
 
@@ -21,7 +22,7 @@ logger_initiation()
 # Root route
 @app.get("/")
 async def root():
-    logger.info("Someone hit the root.")
+    logger.info(f"Someone hit the root. Miro is running on {config.env}")
     return {"message": "Miroboman reporting for duty!"}
 
 # Data model for app reviews
