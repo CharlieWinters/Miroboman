@@ -7,6 +7,7 @@
 
 
 export ENVIRONMENT=''
+# set to LOCAL when testing locally
 
 export JIRA_AUTH=''
 # set the jira access token
