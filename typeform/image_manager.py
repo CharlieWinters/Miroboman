@@ -22,14 +22,15 @@ def image_consultant(app_data):
             return
         else:
             for image in list_of_images['items']:
-                imageHandler(image, folder_path)
+                imageHandler(image, folder_path, app_data.app_name)
             return True
 
 
 class imageHandler(object):
 
-    def __init__(self, image, folder_path) -> None:
-        self.image_name = image['filename']
+    def __init__(self, image, folder_path, app_name) -> None:
+        app_name_converted = (app_name[0].lower()).replace(" ", "_")
+        self.image_name = f"{app_name_converted}_{image['filename']}"
         self.url = image['url']
         self.path = folder_path
         self.controller()
