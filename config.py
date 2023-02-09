@@ -46,7 +46,7 @@ else:
     typeform_dev_name = 'AhjQFofHGzwR'
     typeform_dev_email = 'b97C9pVZgSzp'
     typeform_short_desc = 'ZJ9hXw2xRUAj'
-    typeform_full_desc = 'ZJ9hXw2xRUAj'
+    typeform_full_desc = '2x8EJfWgq3iE'
     typeform_tos = 'FaQA5YgAK2y5'
     typeform_privacy_policy = '1uSGj4dUq69O'
     typeform_helpfull_links = 'qYwAcY0nW3fq'
