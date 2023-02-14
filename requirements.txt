@@ -3,3 +3,4 @@ pydantic
 requests
 gunicorn
 uvicorn
+loguru
