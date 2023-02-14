@@ -24,7 +24,7 @@ miro_team_id = "3074457345710752794"
 # Form Question IDs (IDs for each question on the form)
 
 if os.environ["ENVIRONMENT"] == 'LOCAL':
-    logger.info("Miroboman is being run locally.")
+    print("Miroboman is being run locally.")
     env = "DEV"
     typeform_app_name = 'Aepp7sDitPj0'
     typeform_app_id = 'ZiZlqPZXDBHn'

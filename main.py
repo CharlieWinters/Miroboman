@@ -1,23 +1,39 @@
 from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from shared import data_definer, controller
 from jira import app_validator
 import json
+import uuid
 from jira import passed_checks
 from logging_dir.logging import logger
 from typeform import typeform_manager
-from miro_boards import boards
 import config
 
 app = FastAPI()
 
-# Function to initiate logging
-def logger_initiation():
-    logger.info("Miroboman is starting up.")
-
 success = json.dumps({'success': True}), 200, {'Content-Type': 'application/json'}
 bad_request = json.dumps({'success': False}), 400, {'Content-Type': 'application/json'}
-logger_initiation()
+
+# Middleware to add unique hash to each request for easier logging
+@app.middleware("http")
+async def request_middleware(request, call_next):
+    request_id = str(uuid.uuid4())
+    with logger.contextualize(request_id=request_id):
+        logger.info(f"Request started for {request_id}")
+
+        try:
+            response = await call_next(request)
+
+        except Exception as ex:
+            logger.error(f"Request failed: {ex}")
+            response = JSONResponse(content={"success": False}, status_code=500)
+
+        finally:
+            response.headers["X-Request-ID"] = request_id
+            logger.info(f"Request ended for {request_id}")
+            return response
+
 
 # Root route
 @app.get("/")
