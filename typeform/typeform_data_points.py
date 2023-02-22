@@ -8,6 +8,7 @@ class typeformDataSummary():
             self.app_id = [i['response'] for i in request_data['fields'] if config.typeform_app_id in i['id']]
             self.dev_name = [i['response'] for i in request_data['fields'] if config.typeform_dev_name in i['id']]
             self.dev_email = [i['response'] for i in request_data['fields'] if config.typeform_dev_email in i['id']]
+            self.use_case = [i['response'] for i in request_data['fields'] if config.typeform_use_case in i['id']]
             self.short_desc = [i['response'] for i in request_data['fields'] if config.typeform_short_desc in i['id']]
             self.full_desc = [i['response'] for i in request_data['fields'] if config.typeform_full_desc in i['id']]
             self.tos = [i['response'] for i in request_data['fields'] if config.typeform_tos in i['id']]
